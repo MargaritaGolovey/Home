@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import CheckboxList_item_Left from "./CheckboxList_item_Left";
+import CheckboxList_item_Left from "./CheckboxList_item_Left";   
 import CheckboxList_item_Right from "./CheckboxList_item_Right";
 
 const CheckboxList = () => {
@@ -34,9 +34,15 @@ const CheckboxList = () => {
     funSetState(data);
   };
   const changeCheck = (element, data, setState) => {
+    const istrue=(arg)=>{if(arg){
+      return false
+    }else{
+      return true
+    }
+  }
     const newData = data.map((item) => {
       if (item.id == element.id) {
-        return { ...item, checked: true };
+        return { ...item, checked: istrue(item.checked) };
       } else {
         return item;
       }
