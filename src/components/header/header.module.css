@@ -1,0 +1,16 @@
+.ulNavigation{
+    list-style: none;
+    display: flex;
+    justify-content: space-around;
+
+}
+.blueColor{
+text-decoration: none;
+color: blue;
+
+
+}
+
+.redColor{
+    color:red
+}

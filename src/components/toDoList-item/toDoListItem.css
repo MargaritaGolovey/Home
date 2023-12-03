@@ -1,0 +1,23 @@
+.icon{
+    width: 20px;
+    height: 20px;      
+}
+
+.item-type{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    
+}
+.icon-type button{
+    margin-left: 10px;
+}
+.itemNumber{
+    font-size: 22px;
+    font-weight: 800;
+    margin-right: 20px;
+}
+.wrapper{
+    display: flex;
+    align-items: center;
+}
