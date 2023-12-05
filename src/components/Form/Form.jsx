@@ -1,6 +1,7 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFormContext, useWatch } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { updateForm } from "../../features/form/form";
+import { useEffect, useState } from "react";
 
 //price 1 item = 5грн
 //count +1
@@ -9,14 +10,12 @@ import { updateForm } from "../../features/form/form";
 const Forms = () => {
   const form = useSelector((state) => state.form.form);
   console.log(form);
-  const dispatch = useDispatch();     
-
-
-  
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isDirty, dirtyFields },
   } = useForm({
     defaultValues: {
@@ -26,8 +25,22 @@ const Forms = () => {
       isMarried: form.isMarried,
     },
   });
+
+  const itemWatch = watch();
+
   const onSubmit = (data) => dispatch(updateForm(data));
   // console.log(isDirty, dirtyFields);
+
+  useEffect(() => {
+    dispatch(
+      updateForm({
+        first_name: itemWatch.first_name,
+        last_name: itemWatch.last_name,
+        age: itemWatch.age,
+      })
+    );
+  }, [itemWatch.first_name, itemWatch.last_name, itemWatch.age]);
+
   return (
     <div>
       <form
@@ -39,7 +52,8 @@ const Forms = () => {
           gap: 16,
         }}
       >
-        <input 
+        <input
+          name="first_name"
           type="text"
           placeholder="first_name"
           {...register("first_name", {
@@ -52,7 +66,6 @@ const Forms = () => {
               message: "Please make ur name shorter",
             },
           })}
-          onChange={(e)=>dispatch(updateForm({first_name:e.target.value}))}
         />
         {errors.first_name && (
           <p style={{ color: "red" }}>{errors.first_name.message}</p>
@@ -61,20 +74,16 @@ const Forms = () => {
           type="text"
           placeholder="last_name"
           {...register("last_name", { required: true, maxLength: 6 })}
-          onChange={(e)=>dispatch(updateForm({last_name:e.target.value}))}
         />
         <input
           type="number"
           placeholder="age"
           {...register("age", { required: true, maxLength: 3 })}
-          onChange={(e)=>dispatch(updateForm({age:e.target.value}))}
         />
         <input
           type="checkbox"
           placeholder="isMarried"
           {...register("isMarried", {})}
-          onChange={(e)=>dispatch(updateForm({isMarried:e.target.value}))}
-          
         />
 
         <input type="submit" />

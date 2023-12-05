@@ -14,12 +14,11 @@ export const formSlice = createSlice({
   initialState,
   reducers: {
     updateForm: (state, action) => {
-      console.log(action.payload)
       state.form = action.payload;
     },
   },
 });
 
-export const { updateForm} = formSlice.actions;
+export const { updateForm } = formSlice.actions;
 
 export default formSlice.reducer;
